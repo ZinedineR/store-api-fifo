@@ -23,18 +23,14 @@ This is golang clean architecture template.
 ## Tech Stack
 
 - Golang : https://github.com/golang/go
-- MySQL (Database) : https://github.com/mysql/mysql-server
-- Apache Kafka : https://github.com/apache/kafka
+- Postgres: https://github.com/lib/pq
 
 ## Framework & Library
 
-- GoFiber (HTTP Framework) : https://github.com/gofiber/fiber
+- Gin: https://github.com/gin-gonic/gin
 - GORM (ORM) : https://github.com/go-gorm/gorm
 - Viper (Configuration) : https://github.com/spf13/viper
-- Golang Migrate (Database Migration) : https://github.com/golang-migrate/migrate
 - Go Playground Validator (Validation) : https://github.com/go-playground/validator
-- Logrus (Logger) : https://github.com/sirupsen/logrus
-- Confluent Kafka Golang : https://github.com/confluentinc/confluent-kafka-go
 
 ## Configuration
 
@@ -42,40 +38,17 @@ All configuration is in `config.json` file.
 
 ## API Spec
 
-All API Spec is in `api` folder.
+All API Spec is in `docs` folder.
 
 ## Database Migration
 
-All database migration is in `db/migrations` folder.
+Automated
 
-### Create Migration
-
-```shell
-migrate create -ext sql -dir db/migrations create_table_xxx
-```
-
-### Run Migration
-
-```shell
-migrate -database "mysql://root:@tcp(localhost:3306)/golang_clean_architecture?charset=utf8mb4&parseTime=True&loc=Local" -path db/migrations up
-```
 
 ## Run Application
-
-### Run unit test
-
-```bash
-go test -v ./test/
-```
 
 ### Run web server
 
 ```bash
 go run cmd/web/main.go
-```
-
-### Run worker
-
-```bash
-go run cmd/worker/main.go
 ```
