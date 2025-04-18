@@ -1,0 +1,703 @@
+basePath: /api/notificationsvc/api/v1
+definitions:
+  boiler-plate-clean_internal_delivery_http_response.DataResponse:
+    properties:
+      data: {}
+      responseCode:
+        type: integer
+      responseMessage: {}
+    type: object
+  boiler-plate-clean_internal_entity.Product:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  boiler-plate-clean_internal_entity.Sale:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      product:
+        $ref: '#/definitions/boiler-plate-clean_internal_entity.Product'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+      total_hpp:
+        type: number
+    type: object
+  boiler-plate-clean_internal_entity.Stock:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      product:
+        $ref: '#/definitions/boiler-plate-clean_internal_entity.Product'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+  boiler-plate-clean_internal_model.CreateProductReq:
+    properties:
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  boiler-plate-clean_internal_model.CreateProductRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  boiler-plate-clean_internal_model.CreateSaleReq:
+    properties:
+      price:
+        type: number
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+  boiler-plate-clean_internal_model.CreateSaleRes:
+    properties:
+      sale:
+        $ref: '#/definitions/boiler-plate-clean_internal_entity.Sale'
+    type: object
+  boiler-plate-clean_internal_model.CreateStockReq:
+    properties:
+      price:
+        type: number
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+  boiler-plate-clean_internal_model.CreateStockRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      product:
+        $ref: '#/definitions/boiler-plate-clean_internal_entity.Product'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+  boiler-plate-clean_internal_model.DeleteProductRes:
+    properties:
+      id:
+        type: integer
+    type: object
+  boiler-plate-clean_internal_model.DeleteStockRes:
+    properties:
+      id:
+        type: integer
+    type: object
+  boiler-plate-clean_internal_model.GetListProductRes:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/boiler-plate-clean_internal_entity.Product'
+        type: array
+      pagination:
+        $ref: '#/definitions/boiler-plate-clean_internal_model.Pagination'
+    type: object
+  boiler-plate-clean_internal_model.GetListStockRes:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/boiler-plate-clean_internal_entity.Stock'
+        type: array
+      pagination:
+        $ref: '#/definitions/boiler-plate-clean_internal_model.Pagination'
+    type: object
+  boiler-plate-clean_internal_model.GetProductByIdRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  boiler-plate-clean_internal_model.GetStockByIdRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      product:
+        $ref: '#/definitions/boiler-plate-clean_internal_entity.Product'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+  boiler-plate-clean_internal_model.Pagination:
+    properties:
+      limit:
+        description: The size of the page
+        example: 10
+        type: integer
+      page:
+        description: The current page
+        example: 1
+        type: integer
+      total_pages:
+        description: The total number of pages
+        example: 5
+        type: integer
+      total_row_per_page:
+        description: The total number of data per page
+        example: 10
+        type: integer
+      total_rows:
+        description: The total number of data
+        example: 50
+        type: integer
+    type: object
+  boiler-plate-clean_internal_model.ProfitReportRes:
+    properties:
+      laba:
+        type: number
+      month:
+        type: integer
+      total_hpp:
+        type: number
+      total_penjualan:
+        type: number
+      year:
+        type: integer
+    type: object
+  boiler-plate-clean_internal_model.UpdateProductReq:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  boiler-plate-clean_internal_model.UpdateProductRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    required:
+    - name
+    type: object
+  boiler-plate-clean_internal_model.UpdateStockReq:
+    properties:
+      id:
+        type: integer
+      price:
+        type: number
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+  boiler-plate-clean_internal_model.UpdateStockRes:
+    properties:
+      created_at:
+        type: string
+      id:
+        type: integer
+      price:
+        type: number
+      product:
+        $ref: '#/definitions/boiler-plate-clean_internal_entity.Product'
+      product_id:
+        type: integer
+      quantity:
+        type: integer
+    required:
+    - price
+    - product_id
+    - quantity
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Pigeon
+  version: "1.0"
+paths:
+  /product:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of all product with optional filters, pagination,
+        and sorting
+      parameters:
+      - description: Number of items per page
+        in: query
+        name: pageSize
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: string
+      - description: Filter rules<br><br>### Rules Filter<br>rule:<br>  * {Name of
+          Field}:{value}:{Symbol}<br><br>Symbols:<br>  * eq (=)<br>  * lt (<)<br>  *
+          gt (>)<br>  * lte (<=)<br>  * gte (>=)<br>  * in ( in)<br>  * like (like)<br><br>Field
+          list:<br>  * id<br>  * name<br>  * created_at
+        in: query
+        name: filter
+        type: string
+      - default: id:desc
+        description: Sort rules:<br><br>### Rules Sort<br>rule:<br>  * {Name of Field}:{Symbol}<br><br>Symbols:<br>  *
+          asc<br>  * desc<br><br>Field list:<br>  * id<br>  * name<br>  * created_at
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.GetListProductRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Get all product
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: Creates a new product in the catalog
+      parameters:
+      - description: Create Product Request
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/boiler-plate-clean_internal_model.CreateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.CreateProductRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Create a new product
+      tags:
+      - Product
+  /product/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a product by ID
+      parameters:
+      - description: product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.DeleteProductRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Delete a product
+      tags:
+      - Product
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the details of a specific product by ID
+      parameters:
+      - description: product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.GetProductByIdRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Get product details
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: Updates product details
+      parameters:
+      - description: product ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Product Request
+        in: body
+        name: product
+        required: true
+        schema:
+          $ref: '#/definitions/boiler-plate-clean_internal_model.UpdateProductReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.UpdateProductRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Update an existing product
+      tags:
+      - Product
+  /sale:
+    post:
+      consumes:
+      - application/json
+      description: Creates a new sale and calculates HPP using FIFO
+      parameters:
+      - description: Create Sale Request
+        in: body
+        name: sale
+        required: true
+        schema:
+          $ref: '#/definitions/boiler-plate-clean_internal_model.CreateSaleReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.CreateSaleRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Create a new sale
+      tags:
+      - Sale
+  /sale/report:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves total sales, total HPP, and profit (laba) for a specific
+        month and year
+      parameters:
+      - description: Month (1-12)
+        in: query
+        name: month
+        required: true
+        type: integer
+      - description: Year (e.g. 2023)
+        in: query
+        name: year
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.ProfitReportRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Get monthly profit report
+      tags:
+      - Sale
+  /stock:
+    get:
+      consumes:
+      - application/json
+      description: Retrieves a list of all stock with optional filters, pagination,
+        and sorting
+      parameters:
+      - description: Number of items per page
+        in: query
+        name: pageSize
+        type: string
+      - description: Page number
+        in: query
+        name: page
+        type: string
+      - default: id:1:eq
+        description: Filter rules<br><br>### Rules Filter<br>rule:<br>  * {Name of
+          Field}:{value}:{Symbol}<br><br>Symbols:<br>  * eq (=)<br>  * lt (<)<br>  *
+          gt (>)<br>  * lte (<=)<br>  * gte (>=)<br>  * in ( in)<br>  * like (like)<br><br>Field
+          list:<br>  * id<br>  * price
+        in: query
+        name: filter
+        type: string
+      - default: id:desc
+        description: Sort rules:<br><br>### Rules Sort<br>rule:<br>  * {Name of Field}:{Symbol}<br><br>Symbols:<br>  *
+          asc<br>  * desc<br><br>Field list:<br>  * id<br>  * price
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.GetListStockRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Get all stock
+      tags:
+      - Stock
+    post:
+      consumes:
+      - application/json
+      description: Creates a new stock in the system
+      parameters:
+      - description: Create Stock Request
+        in: body
+        name: stock
+        required: true
+        schema:
+          $ref: '#/definitions/boiler-plate-clean_internal_model.CreateStockReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.CreateStockRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Create a new stock
+      tags:
+      - Stock
+  /stock/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Deletes a stock by ID
+      parameters:
+      - description: stock ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.DeleteStockRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Delete a stock
+      tags:
+      - Stock
+    get:
+      consumes:
+      - application/json
+      description: Retrieves the details of a specific stock by ID
+      parameters:
+      - description: stock ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.GetStockByIdRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Get stock details
+      tags:
+      - Stock
+    put:
+      consumes:
+      - application/json
+      description: Updates stock details
+      parameters:
+      - description: stock ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Update Stock Request
+        in: body
+        name: stock
+        required: true
+        schema:
+          $ref: '#/definitions/boiler-plate-clean_internal_model.UpdateStockReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: success
+          schema:
+            allOf:
+            - $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+            - properties:
+                data:
+                  $ref: '#/definitions/boiler-plate-clean_internal_model.UpdateStockRes'
+              type: object
+        "400":
+          description: error
+          schema:
+            $ref: '#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse'
+      summary: Update an existing stock
+      tags:
+      - Stock
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

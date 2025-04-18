@@ -1,0 +1,1092 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a sample server celler server.",
+        "title": "Pigeon",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/notificationsvc/api/v1",
+    "paths": {
+        "/product": {
+            "get": {
+                "description": "Retrieves a list of all product with optional filters, pagination, and sorting",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get all product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Number of items per page",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Filter rules\u003cbr\u003e\u003cbr\u003e### Rules Filter\u003cbr\u003erule:\u003cbr\u003e  * {Name of Field}:{value}:{Symbol}\u003cbr\u003e\u003cbr\u003eSymbols:\u003cbr\u003e  * eq (=)\u003cbr\u003e  * lt (\u003c)\u003cbr\u003e  * gt (\u003e)\u003cbr\u003e  * lte (\u003c=)\u003cbr\u003e  * gte (\u003e=)\u003cbr\u003e  * in ( in)\u003cbr\u003e  * like (like)\u003cbr\u003e\u003cbr\u003eField list:\u003cbr\u003e  * id\u003cbr\u003e  * name\u003cbr\u003e  * created_at",
+                        "name": "filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "id:desc",
+                        "description": "Sort rules:\u003cbr\u003e\u003cbr\u003e### Rules Sort\u003cbr\u003erule:\u003cbr\u003e  * {Name of Field}:{Symbol}\u003cbr\u003e\u003cbr\u003eSymbols:\u003cbr\u003e  * asc\u003cbr\u003e  * desc\u003cbr\u003e\u003cbr\u003eField list:\u003cbr\u003e  * id\u003cbr\u003e  * name\u003cbr\u003e  * created_at",
+                        "name": "sort",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.GetListProductRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new product in the catalog",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Create a new product",
+                "parameters": [
+                    {
+                        "description": "Create Product Request",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_model.CreateProductReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.CreateProductRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{id}": {
+            "get": {
+                "description": "Retrieves the details of a specific product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Get product details",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.GetProductByIdRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates product details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Update an existing product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Product Request",
+                        "name": "product",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_model.UpdateProductReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.UpdateProductRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a product by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Product"
+                ],
+                "summary": "Delete a product",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.DeleteProductRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/sale": {
+            "post": {
+                "description": "Creates a new sale and calculates HPP using FIFO",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sale"
+                ],
+                "summary": "Create a new sale",
+                "parameters": [
+                    {
+                        "description": "Create Sale Request",
+                        "name": "sale",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_model.CreateSaleReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.CreateSaleRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/sale/report": {
+            "get": {
+                "description": "Retrieves total sales, total HPP, and profit (laba) for a specific month and year",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Sale"
+                ],
+                "summary": "Get monthly profit report",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Month (1-12)",
+                        "name": "month",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Year (e.g. 2023)",
+                        "name": "year",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.ProfitReportRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock": {
+            "get": {
+                "description": "Retrieves a list of all stock with optional filters, pagination, and sorting",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Get all stock",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Number of items per page",
+                        "name": "pageSize",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Page number",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "id:1:eq",
+                        "description": "Filter rules\u003cbr\u003e\u003cbr\u003e### Rules Filter\u003cbr\u003erule:\u003cbr\u003e  * {Name of Field}:{value}:{Symbol}\u003cbr\u003e\u003cbr\u003eSymbols:\u003cbr\u003e  * eq (=)\u003cbr\u003e  * lt (\u003c)\u003cbr\u003e  * gt (\u003e)\u003cbr\u003e  * lte (\u003c=)\u003cbr\u003e  * gte (\u003e=)\u003cbr\u003e  * in ( in)\u003cbr\u003e  * like (like)\u003cbr\u003e\u003cbr\u003eField list:\u003cbr\u003e  * id\u003cbr\u003e  * price",
+                        "name": "filter",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "default": "id:desc",
+                        "description": "Sort rules:\u003cbr\u003e\u003cbr\u003e### Rules Sort\u003cbr\u003erule:\u003cbr\u003e  * {Name of Field}:{Symbol}\u003cbr\u003e\u003cbr\u003eSymbols:\u003cbr\u003e  * asc\u003cbr\u003e  * desc\u003cbr\u003e\u003cbr\u003eField list:\u003cbr\u003e  * id\u003cbr\u003e  * price",
+                        "name": "sort",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.GetListStockRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a new stock in the system",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Create a new stock",
+                "parameters": [
+                    {
+                        "description": "Create Stock Request",
+                        "name": "stock",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_model.CreateStockReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.CreateStockRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/stock/{id}": {
+            "get": {
+                "description": "Retrieves the details of a specific stock by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Get stock details",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "stock ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.GetStockByIdRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Updates stock details",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Update an existing stock",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "stock ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Stock Request",
+                        "name": "stock",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_model.UpdateStockReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.UpdateStockRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Deletes a stock by ID",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Stock"
+                ],
+                "summary": "Delete a stock",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "stock ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/boiler-plate-clean_internal_model.DeleteStockRes"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/boiler-plate-clean_internal_delivery_http_response.DataResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "boiler-plate-clean_internal_delivery_http_response.DataResponse": {
+            "type": "object",
+            "properties": {
+                "data": {},
+                "responseCode": {
+                    "type": "integer"
+                },
+                "responseMessage": {}
+            }
+        },
+        "boiler-plate-clean_internal_entity.Product": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_entity.Sale": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_entity.Product"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "total_hpp": {
+                    "type": "number"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_entity.Stock": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_entity.Product"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.CreateProductReq": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.CreateProductRes": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.CreateSaleReq": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "price": {
+                    "type": "number"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.CreateSaleRes": {
+            "type": "object",
+            "properties": {
+                "sale": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_entity.Sale"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.CreateStockReq": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "price": {
+                    "type": "number"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.CreateStockRes": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_entity.Product"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.DeleteProductRes": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.DeleteStockRes": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.GetListProductRes": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/boiler-plate-clean_internal_entity.Product"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_model.Pagination"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.GetListStockRes": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/boiler-plate-clean_internal_entity.Stock"
+                    }
+                },
+                "pagination": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_model.Pagination"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.GetProductByIdRes": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.GetStockByIdRes": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_entity.Product"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.Pagination": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "description": "The size of the page",
+                    "type": "integer",
+                    "example": 10
+                },
+                "page": {
+                    "description": "The current page",
+                    "type": "integer",
+                    "example": 1
+                },
+                "total_pages": {
+                    "description": "The total number of pages",
+                    "type": "integer",
+                    "example": 5
+                },
+                "total_row_per_page": {
+                    "description": "The total number of data per page",
+                    "type": "integer",
+                    "example": 10
+                },
+                "total_rows": {
+                    "description": "The total number of data",
+                    "type": "integer",
+                    "example": 50
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.ProfitReportRes": {
+            "type": "object",
+            "properties": {
+                "laba": {
+                    "type": "number"
+                },
+                "month": {
+                    "type": "integer"
+                },
+                "total_hpp": {
+                    "type": "number"
+                },
+                "total_penjualan": {
+                    "type": "number"
+                },
+                "year": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.UpdateProductReq": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.UpdateProductRes": {
+            "type": "object",
+            "required": [
+                "name"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.UpdateStockReq": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        },
+        "boiler-plate-clean_internal_model.UpdateStockRes": {
+            "type": "object",
+            "required": [
+                "price",
+                "product_id",
+                "quantity"
+            ],
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "product": {
+                    "$ref": "#/definitions/boiler-plate-clean_internal_entity.Product"
+                },
+                "product_id": {
+                    "type": "integer"
+                },
+                "quantity": {
+                    "type": "integer"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "BasicAuth": {
+            "type": "basic"
+        }
+    },
+    "externalDocs": {
+        "description": "OpenAPI",
+        "url": "https://swagger.io/resources/open-api/"
+    }
+}
