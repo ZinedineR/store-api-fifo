@@ -62,6 +62,15 @@ func GetFilterOperator(operator string) (string, error) {
 type Handler struct {
 }
 
+func (h *Handler) GetIntId(e *gin.Context) int {
+	id := e.Param("id")
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		return 0
+	}
+	return idInt
+}
+
 func (h *Handler) JSON(e *gin.Context, r response.IResponse) {
 	e.JSON(r.GetStatusCode(), r)
 }

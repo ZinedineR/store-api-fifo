@@ -12,17 +12,18 @@ import (
 
 type BaseRepository[T any] interface {
 	CreateTx(ctx context.Context, tx *gorm.DB, data *T) error
+	CreateTxAssociation(ctx context.Context, tx *gorm.DB, data *T) error
 	UpdateTx(ctx context.Context, tx *gorm.DB, data *T) error
 	UpdateTxWithAssociations(ctx context.Context, tx *gorm.DB, data *T) error
-	DeleteByIDTx(ctx context.Context, tx *gorm.DB, id string) error
+	DeleteByIDTx(ctx context.Context, tx *gorm.DB, id int) error
 	Find(
 		ctx context.Context, tx *gorm.DB, order model.OrderParam, filter model.FilterParams,
-	) (*[]T, error)
+	) ([]*T, error)
 	FindByPagination(
 		ctx context.Context, tx *gorm.DB, page model.PaginationParam, order model.OrderParam,
 		filter model.FilterParams,
 	) (*model.PaginationData[T], error)
-	FindByID(ctx context.Context, tx *gorm.DB, id string) (*T, error)
+	FindByID(ctx context.Context, tx *gorm.DB, id int) (*T, error)
 	FindByColumn(
 		ctx context.Context, tx *gorm.DB, filter model.FilterParams, order model.OrderParam,
 	) (*T, error)
@@ -87,7 +88,7 @@ func (r *BaseRepositoryImpl[T]) UpdateTxWithAssociations(ctx context.Context, tx
 	return nil
 }
 
-func (r *BaseRepositoryImpl[T]) DeleteByIDTx(ctx context.Context, tx *gorm.DB, id string) error {
+func (r *BaseRepositoryImpl[T]) DeleteByIDTx(ctx context.Context, tx *gorm.DB, id int) error {
 	if err := tx.WithContext(ctx).Unscoped().Where("id = ?", id).Delete(new(T)).Error; err != nil {
 		slog.Error("failed to delete", err)
 		return err
@@ -118,8 +119,8 @@ func (r *BaseRepositoryImpl[T]) FindByPagination(
 
 func (r *BaseRepositoryImpl[T]) Find(
 	ctx context.Context, tx *gorm.DB, order model.OrderParam, filter model.FilterParams,
-) (*[]T, error) {
-	var data *[]T
+) ([]*T, error) {
+	var data []*T
 	query := tx.WithContext(ctx).Omit(clause.Associations)
 	query = pagination.Where(filter, query)
 	query = pagination.Order(order, query)
@@ -133,7 +134,7 @@ func (r *BaseRepositoryImpl[T]) Find(
 	return data, nil
 }
 
-func (r *BaseRepositoryImpl[T]) FindByID(ctx context.Context, tx *gorm.DB, id string) (*T, error) {
+func (r *BaseRepositoryImpl[T]) FindByID(ctx context.Context, tx *gorm.DB, id int) (*T, error) {
 	var data T
 	if len(r.relationFields) > 0 {
 		tx = tx.WithContext(ctx)

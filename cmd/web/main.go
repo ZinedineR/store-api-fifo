@@ -60,19 +60,27 @@ func main() {
 	})
 
 	// repository
-	exampleRepository := repository.NewExampleSQLRepository()
+	productRepository := repository.NewProductSQLRepository()
+	stockRepository := repository.NewStockSQLRepository()
+	saleRepository := repository.NewSaleSQLRepository()
 
 	// external api
-	//gotifySvcExternalAPI := externalapi.NewExampleExternalImpl(conf, httpClient)
+	//gotifySvcExternalAPI := externalapi.NewProductExternalImpl(conf, httpClient)
 
 	// service
-	exampleService := services.NewExampleService(sqlClientRepo.GetDB(), exampleRepository, validate)
+	productService := services.NewProductService(sqlClientRepo.GetDB(), productRepository, validate)
+	stockService := services.NewStockService(sqlClientRepo.GetDB(), stockRepository, productRepository, validate)
+	saleService := services.NewSaleService(sqlClientRepo.GetDB(), saleRepository, stockRepository, productRepository, validate)
 	// Handler
-	exampleHandler := http.NewExampleHTTPHandler(exampleService)
+	productHandler := http.NewProductHTTPHandler(productService)
+	stockHandler := http.NewStockHTTPHandler(stockService)
+	saleHandler := http.NewSaleHTTPHandler(saleService)
 
 	router := route.Router{
 		App:            ginServer.App,
-		ExampleHandler: exampleHandler,
+		ProductHandler: productHandler,
+		StockHandler:   stockHandler,
+		SaleHandler:    saleHandler,
 	}
 	router.Setup()
 	router.SwaggerRouter()
@@ -102,12 +110,11 @@ func initInfrastructure(config *config.Config) {
 
 func initSQL(conf *config.Config) *database.Database {
 	db := database.NewDatabase(conf.DatabaseConfig.Dbservice, &database.Config{
-		DbHost:   conf.DatabaseConfig.Dbhost,
-		DbUser:   conf.DatabaseConfig.Dbuser,
-		DbPass:   conf.DatabaseConfig.Dbpassword,
-		DbName:   conf.DatabaseConfig.Dbname,
-		DbPort:   strconv.Itoa(conf.DatabaseConfig.Dbport),
-		DbPrefix: conf.DatabaseConfig.DbPrefix,
+		DbHost: conf.DatabaseConfig.Dbhost,
+		DbUser: conf.DatabaseConfig.Dbuser,
+		DbPass: conf.DatabaseConfig.Dbpassword,
+		DbName: conf.DatabaseConfig.Dbname,
+		DbPort: strconv.Itoa(conf.DatabaseConfig.Dbport),
 	})
 	if conf.IsStaging() {
 		migration.AutoMigration(db)

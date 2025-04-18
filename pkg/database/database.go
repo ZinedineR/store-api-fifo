@@ -3,7 +3,6 @@ package database
 import (
 	"fmt"
 	"github.com/sirupsen/logrus"
-	"gorm.io/gorm/schema"
 	"gorm.io/plugin/dbresolver"
 	"log/slog"
 	"os"
@@ -18,12 +17,11 @@ import (
 )
 
 type Config struct {
-	DbHost   string
-	DbUser   string
-	DbPass   string
-	DbName   string
-	DbPort   string
-	DbPrefix string
+	DbHost string
+	DbUser string
+	DbPass string
+	DbName string
+	DbPort string
 }
 
 type Database struct {
@@ -62,9 +60,6 @@ func NewDatabase(driver string, cfg *Config) *Database {
 		if os.Getenv("APP_DEBUG") == "true" {
 			configGorm.Logger = logger.Default.LogMode(logger.Info)
 			// configGorm.DisableForeignKeyConstraintWhenMigrating = true
-		}
-		configGorm.NamingStrategy = schema.NamingStrategy{
-			TablePrefix: cfg.DbPrefix, // table name prefix, table for `User` would be `t_users`
 		}
 		db, err = gorm.Open(dialect, configGorm)
 		if err != nil {

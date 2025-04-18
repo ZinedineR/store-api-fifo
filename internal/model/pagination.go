@@ -21,3 +21,13 @@ type PaginationData[T any] struct {
 	TotalData        int64 `json:"total_rows"`         // The total number of data
 	Data             []*T  `json:"data"`               // The actual data
 }
+
+func (t *PaginationData[T]) ToPagination() *Pagination {
+	return &Pagination{
+		Page:             t.Page,
+		PageSize:         t.PageSize,
+		TotalPage:        t.TotalPage,
+		TotalDataPerPage: t.TotalDataPerPage,
+		TotalData:        t.TotalData,
+	}
+}

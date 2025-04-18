@@ -7,7 +7,8 @@ import (
 
 func AutoMigration(CpmDB *database.Database) {
 	CpmDB.MigrateDB(
-
-		&entity.Example{})
+		&entity.Product{},
+		&entity.Stock{},
+		&entity.Sale{})
 	//&entity.SMSLog{}
 }
